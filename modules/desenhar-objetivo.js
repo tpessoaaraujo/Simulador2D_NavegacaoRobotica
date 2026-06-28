@@ -1,4 +1,4 @@
-import { ctx, tamanhoCelula } from './desenhar-grade.js';
+import { ctx, tamanhoCelula, agentePosicao } from '../javascript/config.js';
 
 // Definimos a posição do objetivo no grid
 let objetivoPosicao = { linha: 8, coluna: 8 };

@@ -1,10 +1,7 @@
-import { ctx, tamanhoCelula } from './desenhar-grade.js';
-
-// Definimos a posição inicial do agente no grid
-let agentePosicao = { linha: 0, coluna: 0};
+import { ctx, tamanhoCelula, agentePosicao } from '../javascript/config.js';
 
 // Desenhamos o agente no canvas
-export function agenteRobotico() {
+export function desenharAgente() {
     // Calculando a posição x e y no canvas para centralizar o agente na célula
     const x= agentePosicao.coluna * tamanhoCelula + tamanhoCelula / 2;
     const y= agentePosicao.linha * tamanhoCelula + tamanhoCelula / 2;

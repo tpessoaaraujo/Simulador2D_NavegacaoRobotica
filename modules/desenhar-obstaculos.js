@@ -1,4 +1,4 @@
-import { ctx, tamanhoCelula } from './desenhar-grade.js';
+import { ctx, tamanhoCelula, agentePosicao } from '../javascript/config.js';
 
 // Representação Matemática do Mapa (0 = livre, 1 = obstáculo)
 export const mapaMatriz = [
@@ -14,7 +14,7 @@ export const mapaMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  // Linha 9
 ];
 
-export function gerarObstaculos() {
+export function desenharObstaculos() {
     // Definindo a cor das paredes
     ctx.fillStyle = '#34495e';
 

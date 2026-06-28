@@ -1,8 +1,4 @@
-export const canvas = document.getElementById('mapa');
-// Obtendo o contexto 2D do canvas (Ferramenta para desenhar)
-export const ctx = canvas.getContext('2d');
-// Definindo o tamanho da célula da grade em pixels
-export const tamanhoCelula = 50;
+import { ctx, tamanhoCelula, agentePosicao, canvas } from '../javascript/config.js';
 
 export function desenharGrade() {
     // Definindo a cor e a largura da linha da grade
