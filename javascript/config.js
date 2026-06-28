@@ -2,8 +2,25 @@ export const canvas = document.getElementById('mapa');
 export const ctx = canvas.getContext('2d');
 export const tamanhoCelula = 50;
 
-export const agentePosicao = { linha: 2, coluna: 2 };
-export const objetivoPosicao = { linha: 8, coluna: 8 };
+export const agentePosicao = { linha: 0, coluna: 0 };
+export const objetivoPosicao = { linha: 0, coluna: 0 };
+export let mapaMatriz = [];
+
+function sortearPosicoes() {
+    // Sorteia a posição do agente
+    agentePosicao.linha = Math.floor(Math.random() * 10);
+    agentePosicao.coluna = Math.floor(Math.random() * 10);
+
+    // Sorteia a posição do objetivo, garantindo que não seja a mesma do agente
+    let linhaObjetivo, colunaObjetivo;
+    do {
+        linhaObjetivo = Math.floor(Math.random() * 10);
+        colunaObjetivo = Math.floor(Math.random() * 10);
+    } while (linhaObjetivo === agentePosicao.linha && colunaObjetivo === agentePosicao.coluna);
+
+    objetivoPosicao.linha = linhaObjetivo;
+    objetivoPosicao.coluna = colunaObjetivo;
+}
 
 function gerarMapaAleatorio() {
     const mapa = [];
@@ -30,8 +47,8 @@ function gerarMapaAleatorio() {
     return mapa;
 }
 
-export let mapaMatriz = [];
 export function atualizarMapa() {
+    sortearPosicoes();
     mapaMatriz = gerarMapaAleatorio();
 }
 atualizarMapa();

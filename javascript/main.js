@@ -14,9 +14,6 @@ let mostrarObjetivo = true;
 let noObjetivo = gridMemoria[objetivoPosicao.linha][objetivoPosicao.coluna];
 
 function reiniciarSimulacao() {
-    agentePosicao.linha = 2;
-    agentePosicao.coluna = 2;
-
     atualizarMapa();
     inicializarIA();
 
@@ -25,7 +22,7 @@ function reiniciarSimulacao() {
     buscaConcluida = false;
     mostrarObjetivo = true;
     
-    console.log("Novo mapa gerado! Reiniciando...");
+    console.log("Novo mapa e posições gerados! Reiniciando...");
     loopPrincipal();
 }
 

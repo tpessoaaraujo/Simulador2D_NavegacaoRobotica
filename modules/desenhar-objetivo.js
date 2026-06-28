@@ -1,7 +1,4 @@
-import { ctx, tamanhoCelula, agentePosicao } from '../javascript/config.js';
-
-// Definimos a posição do objetivo no grid
-let objetivoPosicao = { linha: 8, coluna: 8 };
+import { ctx, tamanhoCelula, agentePosicao, objetivoPosicao } from '../javascript/config.js';
 
 // Desenhamos o objetivo no canvas
 export function desenharObjetivo() {
