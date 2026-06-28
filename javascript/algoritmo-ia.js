@@ -1,18 +1,28 @@
 // algoritmo-ia.js
 import No from '../class/no.js';
-import { mapaMatriz } from './config.js';
+import { mapaMatriz, agentePosicao } from './config.js';
 
 // Inicializa a memória
-export const gridMemoria = [];
-for (let i = 0; i < 10; i++) {
-    gridMemoria[i] = [];
-    for (let j = 0; j < 10; j++) {
-        gridMemoria[i][j] = new No(i, j);
-    }
-}
-
+export let gridMemoria = [];
 export let openSet = [];
 export let closedSet = [];
+
+export function inicializarIA() {
+    gridMemoria = [];
+    openSet = [];
+    closedSet = [];
+
+    for (let i = 0; i < 10; i++) {
+        gridMemoria[i] = [];
+        for (let j = 0; j < 10; j++) {
+            gridMemoria[i][j] = new No(i, j);
+        }
+    }
+    const noInicio = gridMemoria[agentePosicao.linha][agentePosicao.coluna];
+    openSet.push(noInicio);
+}
+
+inicializarIA();
 
 export function heuristicaManhattan(noAtual, noObjetivo) {
     const distanciaX = Math.abs(noAtual.coluna - noObjetivo.coluna);

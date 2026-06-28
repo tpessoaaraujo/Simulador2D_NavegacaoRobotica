@@ -30,4 +30,8 @@ function gerarMapaAleatorio() {
     return mapa;
 }
 
-export const mapaMatriz = gerarMapaAleatorio();
+export let mapaMatriz = [];
+export function atualizarMapa() {
+    mapaMatriz = gerarMapaAleatorio();
+}
+atualizarMapa();

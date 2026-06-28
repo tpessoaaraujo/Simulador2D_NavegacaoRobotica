@@ -1,6 +1,6 @@
 // main.js
-import { agentePosicao, objetivoPosicao } from './config.js';
-import { gridMemoria, openSet, closedSet, heuristicaManhattan, obterVizinhosValidos } from './algoritmo-ia.js';
+import { agentePosicao, objetivoPosicao, atualizarMapa, ctx, canvas } from './config.js';
+import { gridMemoria, openSet, closedSet, heuristicaManhattan, obterVizinhosValidos, inicializarIA } from './algoritmo-ia.js';
 
 // Importe suas funções de desenho aqui
 import { desenharGrade } from '../modules/desenhar-grade.js';
@@ -8,14 +8,26 @@ import { desenharObstaculos } from '../modules/desenhar-obstaculos.js';
 import { desenharObjetivo } from '../modules/desenhar-objetivo.js';
 import { desenharAgente } from '../modules/desenhar-agente.js';
 import { desenharNo } from '../modules/desenhar-no.js';
-import { ctx, canvas } from '../javascript/config.js';
 
-const noInicio = gridMemoria[agentePosicao.linha][agentePosicao.coluna];
-const noObjetivo = gridMemoria[objetivoPosicao.linha][objetivoPosicao.coluna];
-
-openSet.push(noInicio);
 let buscaConcluida = false;
 let mostrarObjetivo = true;
+let noObjetivo = gridMemoria[objetivoPosicao.linha][objetivoPosicao.coluna];
+
+function reiniciarSimulacao() {
+    agentePosicao.linha = 2;
+    agentePosicao.coluna = 2;
+
+    atualizarMapa();
+    inicializarIA();
+
+    noObjetivo = gridMemoria[objetivoPosicao.linha][objetivoPosicao.coluna];
+    
+    buscaConcluida = false;
+    mostrarObjetivo = true;
+    
+    console.log("Novo mapa gerado! Reiniciando...");
+    loopPrincipal();
+}
 
 function renderizarCena(caminhoFinal = []) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); 
@@ -54,6 +66,7 @@ function animarMovimentoRobo(caminho, passoAtual) {
         console.log("Nham nham! O robô comeu o objetivo!");
         mostrarObjetivo = false; // Desativa a renderização do objetivo
         renderizarCena(caminho); // Renderiza uma última vez para a bolinha sumir
+        setTimeout(reiniciarSimulacao, 2000); // Reinicia a simulação após 3 segundos
     }
 }
 
@@ -137,6 +150,8 @@ function loopPrincipal() {
         // Se o openSet esvaziar e não acharmos o objetivo, o robô está preso
         console.log("Sem solução. O robô está preso!");
         buscaConcluida = true;
+        renderizarCena();
+        setTimeout(reiniciarSimulacao, 2000);
         return;
     }
 
