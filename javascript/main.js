@@ -1,12 +1,7 @@
 import { mapa, ctx, canvas } from './config.js';
 import { gridMemoria, openSet, closedSet, heuristicaManhattan, obterVizinhosValidos, inicializarIA } from './algoritmo-ia.js';
-
-// Importe suas funções de desenho aqui
-import { desenharGrade } from '../modules/desenhar-grade.js';
-import { desenharObstaculos } from '../modules/desenhar-obstaculos.js';
-import { desenharObjetivo } from '../modules/desenhar-objetivo.js';
-import { desenharAgente } from '../modules/desenhar-agente.js';
-import { desenharNo } from '../modules/desenhar-no.js';
+import { animarMovimentoRobo } from '../modules/animar-movimento.js';
+import {renderizarCena} from './renderizar-cena.js'
 
 let buscaConcluida = false;
 let mostrarObjetivo = true;
@@ -23,47 +18,6 @@ function reiniciarSimulacao() {
     
     console.log("Novo mapa e posições gerados! Reiniciando...");
     loopPrincipal();
-}
-
-function renderizarCena(caminhoFinal = []) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); 
-    
-    desenharGrade();
-    
-    for (let i = 0; i < closedSet.length; i++) desenharNo(closedSet[i], 'red'); 
-    for (let i = 0; i < openSet.length; i++) desenharNo(openSet[i], 'blue'); 
-    for (let i = 0; i < caminhoFinal.length; i++) desenharNo(caminhoFinal[i], 'green');
-
-    desenharObstaculos();
-
-    if (mostrarObjetivo) {
-        desenharObjetivo();
-    }
-
-    desenharAgente();
-}
-
-function animarMovimentoRobo(caminho, passoAtual) {
-    if (passoAtual < caminho.length) {
-        // Atualiza as coordenadas do robô para o próximo passo do caminho
-        mapa.agentePosicao.linha = caminho[passoAtual].linha;
-        mapa.agentePosicao.coluna = caminho[passoAtual].coluna;
-        
-        // Renderiza a cena com a nova posição
-        renderizarCena(caminho);
-        
-        // Define o atraso do movimento (200ms por passo, ajuste como preferir)
-        setTimeout(() => {
-            requestAnimationFrame(() => animarMovimentoRobo(caminho, passoAtual + 1));
-        }, 100);
-        
-    } else {
-        // Quando o passoAtual for igual ao tamanho do caminho, ele chegou ao fim
-        console.log("Nham nham! O robô comeu o objetivo!");
-        mostrarObjetivo = false; // Desativa a renderização do objetivo
-        renderizarCena(caminho); // Renderiza uma última vez para a bolinha sumir
-        setTimeout(reiniciarSimulacao, 2000); // Reinicia a simulação após 3 segundos
-    }
 }
 
 function loopPrincipal() {
@@ -94,7 +48,8 @@ function loopPrincipal() {
             }
 
             caminho.reverse();
-            animarMovimentoRobo(caminho, 0); // Inicia a animação do movimento do robô
+            
+            animarMovimentoRobo(caminho, 0, renderizarCena, mostrarObjetivo, reiniciarSimulacao);
             return;
         }
 
