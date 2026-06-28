@@ -55,7 +55,7 @@ function animarMovimentoRobo(caminho, passoAtual) {
         // Define o atraso do movimento (200ms por passo, ajuste como preferir)
         setTimeout(() => {
             requestAnimationFrame(() => animarMovimentoRobo(caminho, passoAtual + 1));
-        }, 200);
+        }, 100);
         
     } else {
         // Quando o passoAtual for igual ao tamanho do caminho, ele chegou ao fim
