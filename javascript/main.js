@@ -15,19 +15,45 @@ const noObjetivo = gridMemoria[objetivoPosicao.linha][objetivoPosicao.coluna];
 
 openSet.push(noInicio);
 let buscaConcluida = false;
+let mostrarObjetivo = true;
 
 function renderizarCena(caminhoFinal = []) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); 
     
     desenharGrade();
     desenharObstaculos();
+    
+    for (let i = 0; i < closedSet.length; i++) desenharNo(closedSet[i], 'red'); 
+    for (let i = 0; i < openSet.length; i++) desenharNo(openSet[i], 'blue'); 
+    for (let i = 0; i < caminhoFinal.length; i++) desenharNo(caminhoFinal[i], 'green');
 
-    for (let i = 0; i < closedSet.length; i++) desenharNo(closedSet[i], '#ffbaba'); 
-    for (let i = 0; i < openSet.length; i++) desenharNo(openSet[i], '#baffc9'); 
-    for (let i = 0; i < caminhoFinal.length; i++) desenharNo(caminhoFinal[i], '#ffdfba');
+    if (mostrarObjetivo) {
+        desenharObjetivo();
+    }
 
-    desenharObjetivo();
     desenharAgente();
+}
+
+function animarMovimentoRobo(caminho, passoAtual) {
+    if (passoAtual < caminho.length) {
+        // Atualiza as coordenadas do robô para o próximo passo do caminho
+        agentePosicao.linha = caminho[passoAtual].linha;
+        agentePosicao.coluna = caminho[passoAtual].coluna;
+        
+        // Renderiza a cena com a nova posição
+        renderizarCena(caminho);
+        
+        // Define o atraso do movimento (200ms por passo, ajuste como preferir)
+        setTimeout(() => {
+            requestAnimationFrame(() => animarMovimentoRobo(caminho, passoAtual + 1));
+        }, 200);
+        
+    } else {
+        // Quando o passoAtual for igual ao tamanho do caminho, ele chegou ao fim
+        console.log("Nham nham! O robô comeu o objetivo!");
+        mostrarObjetivo = false; // Desativa a renderização do objetivo
+        renderizarCena(caminho); // Renderiza uma última vez para a bolinha sumir
+    }
 }
 
 function loopPrincipal() {
@@ -47,7 +73,7 @@ function loopPrincipal() {
         // 2. Verifica se o robô chegou ao destino!
         if (noAtual === noObjetivo) {
             buscaConcluida = true;
-            console.log("Objetivo alcançado!");
+            console.log("Caminho encontrado! Iniciando a locomoção...");
             
             // Refaz o caminho de volta usando os "pais"
             let caminho = [];
@@ -56,10 +82,10 @@ function loopPrincipal() {
                 caminho.push(temp);
                 temp = temp.pai;
             }
-            
-            // Renderiza a tela uma última vez mostrando o caminho vitorioso
-            renderizarCena(caminho);
-            return; // Encerra a animação
+
+            caminho.reverse();
+            animarMovimentoRobo(caminho, 0); // Inicia a animação do movimento do robô
+            return;
         }
 
         // 3. Move o noAtual do openSet para o closedSet manipulando os arrays diretamente
@@ -118,7 +144,9 @@ function loopPrincipal() {
 
     // Se a busca não terminou, pede ao navegador para rodar o próximo frame
     if (!buscaConcluida) {
-        requestAnimationFrame(loopPrincipal);
+        setTimeout(() => {
+            requestAnimationFrame(loopPrincipal);
+        }, 150)
     }
 }
 
