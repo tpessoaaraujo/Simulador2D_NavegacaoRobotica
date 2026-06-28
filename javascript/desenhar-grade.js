@@ -1,0 +1,27 @@
+export const canvas = document.getElementById('mapa');
+// Obtendo o contexto 2D do canvas (Ferramenta para desenhar)
+export const ctx = canvas.getContext('2d');
+// Definindo o tamanho da célula da grade em pixels
+export const tamanhoCelula = 50;
+
+export function desenharGrade() {
+    // Definindo a cor e a largura da linha da grade
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 1;
+
+    // Desenhando as linhas verticais
+    for (let x = 0; x <= canvas.width; x += tamanhoCelula) {
+        ctx.beginPath(); // Inicia um novo traço
+        ctx.moveTo(x, 0); // Move para o ponto inicial da linha
+        ctx.lineTo(x, canvas.height); // Desenha a linha até o ponto final
+        ctx.stroke(); // Aplica o desenho na tela
+    }
+
+    // Desenhando as linhas horizontais
+    for (let y = 0; y <= canvas.height; y += tamanhoCelula) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+}
