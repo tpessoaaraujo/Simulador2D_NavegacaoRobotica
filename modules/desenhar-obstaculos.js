@@ -1,18 +1,4 @@
-import { ctx, tamanhoCelula, agentePosicao } from '../javascript/config.js';
-
-// Representação Matemática do Mapa (0 = livre, 1 = obstáculo)
-export const mapaMatriz = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Linha 0
-    [0, 0, 0, 0, 0, 0, 1, 1, 0, 0], // Linha 1 (Obstáculo simples)
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], // Linha 2
-    [0, 1, 1, 1, 0, 0, 0, 1, 0, 0], // Linha 3 (Muro em 'L')
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // Linha 4
-    [0, 0, 0, 1, 0, 1, 1, 1, 1, 0], // Linha 5 (Bloqueio horizontal)
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Linha 6
-    [0, 1, 1, 0, 0, 0, 1, 1, 0, 0], // Linha 7
-    [0, 1, 1, 0, 0, 0, 1, 1, 0, 0], // Linha 8
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  // Linha 9
-];
+import { ctx, tamanhoCelula, mapaMatriz } from '../javascript/config.js';
 
 export function desenharObstaculos() {
     // Definindo a cor das paredes

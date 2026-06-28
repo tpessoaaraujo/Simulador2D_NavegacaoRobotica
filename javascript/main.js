@@ -21,11 +21,12 @@ function renderizarCena(caminhoFinal = []) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); 
     
     desenharGrade();
-    desenharObstaculos();
     
     for (let i = 0; i < closedSet.length; i++) desenharNo(closedSet[i], 'red'); 
     for (let i = 0; i < openSet.length; i++) desenharNo(openSet[i], 'blue'); 
     for (let i = 0; i < caminhoFinal.length; i++) desenharNo(caminhoFinal[i], 'green');
+
+    desenharObstaculos();
 
     if (mostrarObjetivo) {
         desenharObjetivo();
