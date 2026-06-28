@@ -1,6 +1,6 @@
 // algoritmo-ia.js
 import No from '../class/no.js';
-import { mapaMatriz, agentePosicao } from './config.js';
+import { mapa } from './config.js';
 
 // Inicializa a memória
 export let gridMemoria = [];
@@ -12,13 +12,13 @@ export function inicializarIA() {
     openSet = [];
     closedSet = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < mapa.linhas; i++) {
         gridMemoria[i] = [];
-        for (let j = 0; j < 10; j++) {
+        for (let j = 0; j < mapa.colunas; j++) {
             gridMemoria[i][j] = new No(i, j);
         }
     }
-    const noInicio = gridMemoria[agentePosicao.linha][agentePosicao.coluna];
+    const noInicio = gridMemoria[mapa.agentePosicao.linha][mapa.agentePosicao.coluna];
     openSet.push(noInicio);
 }
 
@@ -38,9 +38,9 @@ export function obterVizinhosValidos(noAtual) {
         const novaLinha = noAtual.linha + direcoes[i][0];
         const novaColuna = noAtual.coluna + direcoes[i][1];
 
-        const dentroDoGrid = novaLinha >= 0 && novaLinha < 10 && novaColuna >= 0 && novaColuna < 10;
+        const dentroDoGrid = novaLinha >= 0 && novaLinha < mapa.linhas && novaColuna >= 0 && novaColuna < mapa.colunas;
 
-        if (dentroDoGrid && mapaMatriz[novaLinha][novaColuna] === 0) {
+        if (dentroDoGrid && mapa.matriz[novaLinha][novaColuna] === 0) {
             vizinhos.push(gridMemoria[novaLinha][novaColuna]);
         }
     }

@@ -1,10 +1,10 @@
-import { ctx, tamanhoCelula, agentePosicao } from '../javascript/config.js';
+import { ctx, mapa } from '../javascript/config.js';
 
 // Desenhamos o agente no canvas
 export function desenharAgente() {
     // Calculando a posição x e y no canvas para centralizar o agente na célula
-    const x= agentePosicao.coluna * tamanhoCelula + tamanhoCelula / 2;
-    const y= agentePosicao.linha * tamanhoCelula + tamanhoCelula / 2;
+    const x= mapa.agentePosicao.coluna * mapa.tamanhoCelula + mapa.tamanhoCelula / 2;
+    const y= mapa.agentePosicao.linha * mapa.tamanhoCelula + mapa.tamanhoCelula / 2;
 
     // Raio do agente robótico
     const raio = 20;

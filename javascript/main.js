@@ -1,5 +1,4 @@
-// main.js
-import { agentePosicao, objetivoPosicao, atualizarMapa, ctx, canvas } from './config.js';
+import { mapa, ctx, canvas } from './config.js';
 import { gridMemoria, openSet, closedSet, heuristicaManhattan, obterVizinhosValidos, inicializarIA } from './algoritmo-ia.js';
 
 // Importe suas funções de desenho aqui
@@ -11,14 +10,14 @@ import { desenharNo } from '../modules/desenhar-no.js';
 
 let buscaConcluida = false;
 let mostrarObjetivo = true;
-let noObjetivo = gridMemoria[objetivoPosicao.linha][objetivoPosicao.coluna];
+let noObjetivo = gridMemoria[mapa.objetivoPosicao.linha][mapa.objetivoPosicao.coluna];
 
 function reiniciarSimulacao() {
-    atualizarMapa();
+    mapa.atualizar();
     inicializarIA();
 
-    noObjetivo = gridMemoria[objetivoPosicao.linha][objetivoPosicao.coluna];
-    
+    noObjetivo = gridMemoria[mapa.objetivoPosicao.linha][mapa.objetivoPosicao.coluna];
+
     buscaConcluida = false;
     mostrarObjetivo = true;
     
@@ -47,8 +46,8 @@ function renderizarCena(caminhoFinal = []) {
 function animarMovimentoRobo(caminho, passoAtual) {
     if (passoAtual < caminho.length) {
         // Atualiza as coordenadas do robô para o próximo passo do caminho
-        agentePosicao.linha = caminho[passoAtual].linha;
-        agentePosicao.coluna = caminho[passoAtual].coluna;
+        mapa.agentePosicao.linha = caminho[passoAtual].linha;
+        mapa.agentePosicao.coluna = caminho[passoAtual].coluna;
         
         // Renderiza a cena com a nova posição
         renderizarCena(caminho);
@@ -159,7 +158,7 @@ function loopPrincipal() {
     if (!buscaConcluida) {
         setTimeout(() => {
             requestAnimationFrame(loopPrincipal);
-        }, 150)
+        }, 100)
     }
 }
 

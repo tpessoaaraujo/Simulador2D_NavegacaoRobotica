@@ -1,10 +1,10 @@
-import { ctx, tamanhoCelula, agentePosicao } from '../javascript/config.js';
+import { ctx, mapa } from '../javascript/config.js';
 
 export function desenharNo(no, cor) {
-    const x = no.coluna * tamanhoCelula;
-    const y = no.linha * tamanhoCelula;
+    const x = no.coluna * mapa.tamanhoCelula;
+    const y = no.linha * mapa.tamanhoCelula;
     ctx.fillStyle = cor;
-    ctx.fillRect(x, y, tamanhoCelula, tamanhoCelula);
+    ctx.fillRect(x, y, mapa.tamanhoCelula, mapa.tamanhoCelula);
     ctx.strokeStyle = '#e0e0e0';
-    ctx.strokeRect(x, y, tamanhoCelula, tamanhoCelula);
+    ctx.strokeRect(x, y, mapa.tamanhoCelula, mapa.tamanhoCelula);
 }
